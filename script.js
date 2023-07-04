@@ -2,26 +2,29 @@
 let currentPlayer;
 let board;
 const squares = document.querySelectorAll('.square');
-board = [
-  "", "red", "", "red", "", "red", "", "red",
-  "red", "", "red", "", "red", "", "red", "",
-  "", "red", "", "red", "", "red", "", "red",
-  "", "", "", "", "", "", "", "",
-  "", "", "", "", "", "", "", "",
-  "black", "", "black", "", "black", "", "black", "",
-  "", "black", "", "black", "", "black", "", "black",
-  "black", "", "black", "", "black", "", "black", ""
-];
-
 
 
 /*----- cached element references -----*/
 const boardEl = document.getElementById('gameboard');
+const messageEl = document.querySelector('h1')
+const playAgain = document.querySelector('button');
 
+//event listeners
+playAgain.addEventListener('click', init)
 /*----- functions -----*/
 init();
 
 function init() {
+  board = [
+    "", "red", "", "red", "", "red", "", "red",
+    "red", "", "red", "", "red", "", "red", "",
+    "", "red", "", "red", "", "red", "", "red",
+    "", "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "", "",
+    "black", "", "black", "", "black", "", "black", "",
+    "", "black", "", "black", "", "black", "", "black",
+    "black", "", "black", "", "black", "", "black", ""
+  ];
   currentPlayer = 'Black';
   render();
   //alert('black always starts');
@@ -35,7 +38,9 @@ function render() {
 
 
 function renderBoard() {
- 
+ squares.forEach(square => {
+  square.innerHTML = ''
+ })//clears the board for in
   squares.forEach((square, idx) => {
    let pieceColor = board[idx];
     if (pieceColor === 'red') {
@@ -56,18 +61,17 @@ let clickedSquare=null;
 let nextSquare = null;
 
 function renderMove(){
- validMove();
- renderMove();
+  validMove();
+  //playerJump();
 }
-
 
 function validMove() {
   squares.forEach(square => {
     square.addEventListener('click', function(evt) {
       const clickedSquare = evt.target;
-      //console.log(clickedSquare)
+     
       if (nextSquare) {
-        console.log(nextSquare)
+        //console.log(nextSquare)
         const selectedPiece = parseInt(nextSquare.id);
         const validSquares = [];
         if (board[selectedPiece - 7] === '') {
@@ -82,59 +86,78 @@ function validMove() {
         if (board[selectedPiece + 9] === '') {
           validSquares.push(selectedPiece + 9);
         }
+        if (board[selectedPiece - 14] === '') {
+          validSquares.push(selectedPiece - 14);
+        }
+        if (board[selectedPiece - 18] === '') {
+          validSquares.push(selectedPiece - 18);
+        }
+        if (board[selectedPiece + 14] === '') {
+          validSquares.push(selectedPiece + 14);
+        }
+        if (board[selectedPiece + 18] === '') {
+          validSquares.push(selectedPiece + 18);
+        }
         if (validSquares.includes(parseInt(clickedSquare.id))) {
           clickedSquare.innerHTML = nextSquare.innerHTML;
           nextSquare.innerHTML = '';
           nextSquare = null;
-          //changePlayer();
+          const opposingPlayerPiece = (selectedPiece + parseInt(clickedSquare.id)) / 2;
+          let toRemove = document.querySelectorAll(".square");
+          toRemove[opposingPlayerPiece].innerHTML = '';
+  
+         
         } 
       } else {
         nextSquare = clickedSquare;
       }
+      changePlayer();
       getWinner(); 
     });
   });
 }
 
-function playerJump(){
-  squares.forEach(square => {
-    square.addEventListener('click', function(evt) {
-      const clickedSquare = evt.target;
-      //console.log(clickedSquare)
-      if (nextSquare) {
-        console.log(nextSquare)
-        const selectedPiece = parseInt(nextSquare.id);
-        const validSquares = [];
 
-  if (board[selectedPiece - 14] === '') {
-    validSquares.push(selectedPiece - 14);
-  }
-  if (board[selectedPiece - 18] === '') {
-    validSquares.push(selectedPiece - 18);
-  }
-  if (board[selectedPiece + 14] === '') {
-    validSquares.push(selectedPiece + 14);
-  }
-  if (board[selectedPiece + 18] === '') {
-    validSquares.push(selectedPiece + 18);
-  }
-  if (validSquares.includes(parseInt(clickedSquare.id))) {
-    clickedSquare.innerHTML = nextSquare.innerHTML;
-    nextSquare.innerHTML = '';
-    const opposingPlayerPiece = (selectedPiece + parseInt(clickedSquare.id))/2;
-    console.log(opposingPlayerPiece)
-  let toRemove = document.querySelectorAll(".square")
-  toRemove[opposingPlayerPiece].innerHTML='';
-    nextSquare = null;
-    //changePlayer();
-  } 
-} else {
-  nextSquare = clickedSquare;
-}
-    });
-  });
+// function playerJump() {
+//   squares.forEach(square => {
+//     square.onclick = function(evt) {
+//       const clickedSquare = evt.target;
+//       if (nextSquare) {
+//         const selectedPiece = parseInt(nextSquare.id);
+//         const validSquares = [];
 
-} 
+//         if (board[selectedPiece - 14] === '') {
+//           validSquares.push(selectedPiece - 14);
+//         }
+//         if (board[selectedPiece - 18] === '') {
+//           validSquares.push(selectedPiece - 18);
+//         }
+//         if (board[selectedPiece + 14] === '') {
+//           validSquares.push(selectedPiece + 14);
+//         }
+//         if (board[selectedPiece + 18] === '') {
+//           validSquares.push(selectedPiece + 18);
+//         }
+//         if (validSquares.includes(parseInt(clickedSquare.id))) {
+//           clickedSquare.innerHTML = nextSquare.innerHTML;
+//           nextSquare.innerHTML = '';
+
+//           const opposingPlayerPiece = (selectedPiece + parseInt(clickedSquare.id)) / 2;
+//           let toRemove = document.querySelectorAll(".square");
+//           toRemove[opposingPlayerPiece].innerHTML = '';
+
+//           nextSquare = null;
+//           //changePlayer();
+//         }
+//       } else {
+//         nextSquare = clickedSquare;
+//       }
+
+//       getWinner();
+//     };
+//   });
+// }
+
 
 
 
@@ -150,7 +173,6 @@ function getWinner() {
       blackRemaining = true;
     }
   });
-
   if (!redRemaining) {
     alert('Black Wins');
   } else if (!blackRemaining) {
@@ -159,9 +181,10 @@ function getWinner() {
 }
 
 function changePlayer() {
- 
-};
-
+  currentPlayer = currentPlayer == 'Black' ? 'Red' : 'Black';
+   messageEl.innerHTML = `${currentPlayer}'s Turn`
+  
+}
 
 
 
