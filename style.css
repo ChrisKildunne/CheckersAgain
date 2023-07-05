@@ -1,19 +1,30 @@
-/* * {
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-} */
-
 body {
   height: 100vh;
   margin: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
+  background-color: #03fcdb;
 }
-
-#gameboard {
+h1 {
   display: flex;
+  align-self: flex-start;
+  left: 220px;
+  position: absolute;
+}
+h2 {
+  display: flex;
+  align-self: flex-start;
+  position: relative;
+  top: 90px;
+  left: 280px;
+  font-size: 30px;
+}
+#gameboard {
+  display: left;
   flex-direction: column;
+  position: absolute;
+  top: 190px;
+  left: 170px;
 }
 
 .row{
@@ -32,10 +43,6 @@ body {
   height:50px;
   width: 50px;
 }
-
-
-
-
 .red-piece  {
   background-color: red;
   border-radius: 50%;
@@ -44,24 +51,21 @@ body {
   border: 2px solid black;
 
 }
-/* .red-piece:hover{
-  border: 4px solid purple;
-  height:80px;
-  width: 80px;
-}
-
-.black-piece:hover{
-  border: 4px solid purple;
-  height:80px;
-  width: 80px;
-} */
 .black-piece {
   background-color: black;
   border-radius: 50%;
   height: 30px;
   width: 30px;
-  border: 2px solid black;
+  border: 1px solid white;
 }
 .beige {
   background-color: purple;
+}
+
+button{
+  display: flex;
+  align-self: flex-start;
+  left: 140px;
+  top: 700px;
+  position: relative;
 }
