@@ -13,6 +13,7 @@ const squares = document.querySelectorAll('.square');
 const boardEl = document.getElementById('gameboard');
 const messageEl = document.querySelector('h2');
 const playAgain = document.querySelector('button');
+const dubJumpMessage = document.querySelector('h3')
 
 
 // Event listeners
@@ -38,6 +39,7 @@ function init() {
 function render() {
   renderBoard();
   validMove();
+  
 }
 
 function renderBoard() {
@@ -112,7 +114,11 @@ function jumpOver() {
         selectedPiece = parseInt(nextSquare.id);
        // console.log(selectedPiece)
         opposingPlayerPiece = (selectedPiece + parseInt(clickedSquare.id)) / 2;//calculating the id of the piece that is jumped
-       if (board[opposingPlayerPiece] !== '') {//guards against players jumping illegally
+        if (
+          (currentPlayer === 'black' && board[opposingPlayerPiece] === 'red') ||//guards against illegal jumps and jumping over your own piece 
+          (currentPlayer === 'red' && board[opposingPlayerPiece] === 'black')
+        ) {
+        
         if (currentPlayer==='black'){
           if (board[selectedPiece - 14] === '') {
             validSquares.push(selectedPiece - 14);
@@ -140,16 +146,12 @@ function jumpOver() {
           squares[opposingPlayerPiece].innerHTML = ''//delete piece from html
           let updatedPiece = square.id
           console.log("yo:",updatedPiece)
-          dubJump(selectedPiece);
-          if (doubleJumpAvailable) {
-           
-            alert('double jump');
-          }
-
+          dubJump(updatedPiece);
+         
           if (!doubleJumpAvailable) {
             changePlayer();
+            dubJumpMessage.innerHTML =''
           }
-
           getWinner();
         }
       } else {
@@ -182,73 +184,65 @@ function getWinner() {
   }
 }
 function changePlayer() {
-   
     currentPlayer = currentPlayer === 'black' ? 'red' : 'black';
     messageEl.innerHTML = `${currentPlayer.toUpperCase()}'s Turn`;
-  
   }
+
   function dubJump(updatedPiece) {
-    console.log(selectedPiece);
-    doubleJumpAvailable=false;
+    console.log('this', updatedPiece);
+    doubleJumpAvailable = false;
+  
     if (currentPlayer === 'black') {
-    if (
-        board[updatedPiece - 14] === '' ||
-        board[updatedPiece - 18] === ''
-      ) {
-        if (board[updatedPiece - 21] !== '' || board[updatedPiece - 23] !== ''||board[updatedPiece - 25] !== ''||board[updatedPiece - 27] !== '') {
-          if(board[updatedPiece - 28]=== ''||board[updatedPiece - 28]=== ''){
-           console.log(board[updatedPiece])
-           doubleJumpAvailable = true;
-          }
-         }
-       }else {
+
+      const adjacentPieces = [
+        board[updatedPiece - 7],
+        board[updatedPiece - 9],
+      ];
+      const moveGuard = [
+        updatedPiece - 7,
+        updatedPiece - 9
+      ]
+     
+      if (adjacentPieces.includes('red')) {
+        console.log('again,', updatedPiece )
+        if (
+          (board[updatedPiece - 14] === '' && (updatedPiece - 14) > 0) ||
+          (board[updatedPiece - 18] === '' && (updatedPiece - 18) > 0) 
+        ) {
+          console.log(board[updatedPiece]);
+          doubleJumpAvailable = true;
+          dubJumpMessage.innerHTML = "A double jump is available. Go ahead and take it!";
+        }
+      } 
+    else {
         doubleJumpAvailable = false;
       }
     } else if (currentPlayer === 'red') {
-      if (
-        board[updatedPiece + 14] === '' ||
-        board[updatedPiece + 18] === ''
-      ) {
-        if (board[updatedPiece + 21] !== '' || board[updatedPiece + 23] !== ''||board[updatedPiece + 25] !== ''||board[updatedPiece + 27] !== '') {
-         if(board[updatedPiece + 28]=== ''||board[updatedPiece + 28]=== ''){
-          console.log(board[updatedPiece])
+      const adjacentPieces = [
+        board[updatedPiece + 7],
+        board[updatedPiece + 9],
+      ];
+      const moveGuard = [
+        (updatedPiece + 7),
+        (updatedPiece + 9)
+      ]
+      
+      if (adjacentPieces.includes('black')) {
+        if (
+          (board[updatedPiece + 14] === '' && (updatedPiece + 14) < 65) ||
+          (board[updatedPiece + 18] === '' && (updatedPiece + 18) < 65) 
+        )  {
           doubleJumpAvailable = true;
-         }
+          dubJumpMessage.innerHTML = "A double jump is available. Go ahead and take it!";
         }
-      } else {
+      } 
+    else {
         doubleJumpAvailable = false;
       }
     }
   }
   
-// function dubJumpCheck(selectedPiece){ //Guard to check if dub jump is possible
-//   //validSquares = [];
-//       console.log(selectedPiece);
-//        opposingPlayerPiece = (selectedPiece + parseInt(clickedSquare.id)) / 2;//calculating the id of the piece that is jumped
-//   if (board[opposingPlayerPiece] !== '') {//guards against players jumping illegally    
-//         if (currentPlayer==='black'){
-         
-//           if (board[selectedPiece - 14] === ''||
-//               board[selectedPiece - 18] === ''){    
-//             if(board[selectedPiece - 28] === ''||
-//                board[selectedPiece - 32] === ''||
-//                board[selectedPiece - 36]===''){
-//                 jumpOverAvailable=true
-//               } 
-//           }
-//         } else if(currentPlayer==='red'){
-//             if (board[selectedPiece + 14] === ''||
-//                 board[selectedPiece + 18] === ''){    
-//               if(board[selectedPiece + 28] === ''||
-//                  board[selectedPiece + 32] === ''||
-//                  board[selectedPiece + 36] === ''){
-//                   jumpOverAvailable=true
-//           }  
-//        }
-//     }
-//   }
-//  }
-
+  
 // function redKingMe(squareID) {
 //   let kingMeSquares = [56, 58, 60, 62]; // IDs of red king me's
 //   if (kingMeSquares.includes(parseInt(squareID))) {
