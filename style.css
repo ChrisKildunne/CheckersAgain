@@ -7,32 +7,39 @@ body {
 }
 h1 {
   display: flex;
-  align-self: flex-start;
-  left: 220px;
+  justify-content: center;
+  align-items: center;
   position: absolute;
+  top: 1%;
+  left: 40%;
 }
 h2 {
   display: flex;
-  align-self: flex-start;
-  position: relative;
-  top: 80px;
-  left: 280px;
-  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:9%;
+  left: 42%;
+  font-size: 35px;
 }
 h3{
   display: flex;
-  align-self: flex-start;
-  position: relative;
-  top: 120px;
-  
-  font-size: 25px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top:20%;
+  left: 35%;
+  font-size: 20px;
 }
 #gameboard {
-  display: left;
+  display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: absolute;
-  top: 190px;
-  left: 170px;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .row{
@@ -76,6 +83,10 @@ button{
   display: flex;
   align-self: flex-start;
   left: 140px;
-  top: 700px;
+  top: 10%;
   position: relative;
+  height: 170px;
+  width: 250px;
+  font-size: 75px;
+  background-color: limegreen;
 }
