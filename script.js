@@ -6,8 +6,9 @@ let clickedSquare = null;
 let nextSquare = null;
 let selectedPiece;
 let opposingPlayerPiece;
-let doubleJumpAvailable=false;
 let gameOver= false;
+let emptySquares;
+let jumpOverAvailable
 
 /*----- cached element references -----*/
 const squares = document.querySelectorAll('.square');
@@ -95,7 +96,6 @@ function validMove() {
           nextSquare = null;
           board[parseInt(square.id)] =board[selectedPiece];//updates board array
           board[selectedPiece] = ''//updates board array
-          //dubJump()
           jumpOver()
           changePlayer();
           getWinner();
@@ -166,8 +166,8 @@ function jumpOver() {
 }
 function dubJump(updatedPiece) {
   
-  let jumpOverAvailable = false;
-  let emptySquares = [];
+  jumpOverAvailable = false;
+  emptySquares = [];
   const frontPiece9 = currentPlayer === 'black' ? board[updatedPiece - 9] : board[updatedPiece + 9];
   const frontPiece7 = currentPlayer === 'black' ? board[updatedPiece - 7] : board[updatedPiece + 7];
   const opposingPiece = currentPlayer === 'black' ? 'red' : 'black';
@@ -190,13 +190,10 @@ function dubJump(updatedPiece) {
   
   if (emptySquares.length > 0) {
     jumpOverAvailable = true;
-    dubJumpMessage.innerHTML = 'You have a double jump available go ahead and take it!'
+    dubJumpMessage.innerHTML = 'You have a another jump available go ahead and take it!'
   }
 
-  if (jumpOverAvailable) {
-    
-    dubJump(updatedPiece);
-  } else {
+  if (!jumpOverAvailable) {
     changePlayer();
     dubJumpMessage.innerHTML = ''
   }
@@ -256,46 +253,7 @@ function changePlayer() {
     messageEl.innerHTML = `${currentPlayer.toUpperCase()}'s Turn`;
   }
 
-  // function blackDubJump(updatedPiece) {
-  //   console.log('this', updatedPiece);
-  //   doubleJumpAvailable = false;
-  
-  //   if (currentPlayer === 'black') {
-  //     if (board[updatedPiece - 7]=== 'red' && (board[updatedPiece - 14] === '' || board[updatedPiece - 18] === '')||
-  //         board[updatedPiece - 9]=== 'red' && ((board[updatedPiece - 14]) === ''|| (board[updatedPiece - 18]) === '')) {
-  //   if (
-  //    (updatedPiece + 14) > 0 ||
-  //    (updatedPiece + 18) > 0)
-  //    {
-  //         console.log(board[updatedPiece]);
-  //         doubleJumpAvailable = true;
-  //         dubJumpMessage.innerHTML = "A double jump is available. Go ahead and take it!";
-  //       }
-  //   }else {
-  //       doubleJumpAvailable = false;
-  //     }
-  //   }
-  //  else if (currentPlayer === 'red') {
-  //   if (board[updatedPiece + 7]=== 'black' && (board[updatedPiece + 14] === '' || (board[updatedPiece + 18]) === '')||
-  //       board[updatedPiece + 9]==='black' && ((board[updatedPiece + 14]) === ''|| (board[updatedPiece + 18]) === '')) {
-  //     if (
-  //      (updatedPiece + 14) < 63 ||
-  //      (updatedPiece + 18) < 63)
-  //      {
-  //       console.log(board[updatedPiece]);
-  //       doubleJumpAvailable = true;
-  //       dubJumpMessage.innerHTML = "A double jump is available. Go ahead and take it!";
-  //     }
-  //   } else {
-  //     doubleJumpAvailable = false;
-  //   }
-  // }
-  // }
- 
-
-
-  
-  
+   
 // function redKingMe(squareID) {
 //   let kingMeSquares = [56, 58, 60, 62]; // IDs of red king me's
 //   if (kingMeSquares.includes(parseInt(squareID))) {

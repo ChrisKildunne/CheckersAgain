@@ -3,71 +3,96 @@ body {
   margin: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   background-color: #03fcdb;
+  font-family: Arial, sans-serif;
 }
+
 h1 {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 1%;
   left: 40%;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
 }
+
 h2 {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top:9%;
-  left: 42%;
+  top: 9%;
+  left: 40;
   font-size: 35px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
+  z-index: 1;
+
 }
-h3{
+
+h3 {
+  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top:20%;
+  top: 20%;
   left: 35%;
   font-size: 20px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  transform: translateX(-50%);
 }
+
 #gameboard {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 60%;
-  left: 50%;
+  left: 42%;
   transform: translate(-50%, -50%);
 }
 
-.row{
-  display:flex;
- 
+.row {
+  display: flex;
 }
+
 .square {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   border: 2px solid black;
   box-sizing: border-box;
   background-color: brown;
+  cursor: pointer;
+  transition: border-color 0.3s;
 }
+
 .square:hover {
-  border: 4px dotted red;
-  height:50px;
-  width: 50px;
+  border-color: red;
 }
-.red-piece  {
+
+.red-piece {
+ 
   background-color: red;
   border-radius: 50%;
   height: 30px;
   width: 30px;
   border: 2px solid black;
   pointer-events: none;
-
 }
+
 .black-piece {
+ 
   background-color: black;
   border-radius: 50%;
   height: 30px;
@@ -75,18 +100,81 @@ h3{
   border: 1px solid white;
   pointer-events: none;
 }
+
 .beige {
   background-color: purple;
 }
 
-button{
+button {
   display: flex;
-  align-self: flex-start;
-  left: 140px;
-  top: 10%;
-  position: relative;
+  position: fixed;
+  bottom: 80px;
+  left: 30px;
   height: 170px;
   width: 250px;
   font-size: 75px;
   background-color: limegreen;
+  border: none;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
+
+button:hover {
+  background-color: darkgreen;
+}
+
+@media (max-width: 768px) {
+  /* CSS for screens up to 768px width */
+  h1 {
+    font-size: 25px;
+    position: fixed;
+    top: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  h2 {
+    font-size: 20px;
+    position: fixed;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+  }
+  h3 {
+    font-size: 15px;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  #gameboard {
+    
+    top: 40%;
+  }
+  
+  .square {
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+  }
+  
+  .red-piece {
+    height: 20px;
+    width: 20px;
+    border: 1px solid black;
+  }
+  
+  .black-piece {
+    height: 20px;
+    width: 20px;
+    border: 1px solid white;
+  }
+  
+  button {
+    font-size: 50px;
+  }
