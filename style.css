@@ -6,6 +6,7 @@ body {
   justify-content: center;
   background-color: #03fcdb;
   font-family: Arial, sans-serif;
+  
 }
 
 h1 {
@@ -14,11 +15,11 @@ h1 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 1%;
-  left: 40%;
+  top: 10%; /* Adjust this value for the vertical positioning */
+  left: 50%;
+  transform: translateX(-50%);
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  transform: translateX(-50%);
 }
 
 h2 {
@@ -27,14 +28,13 @@ h2 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 9%;
-  left: 40;
-  font-size: 35px;
+  top: 20%; /* Adjust this value for the vertical positioning */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  transform: translateX(-50%);
   z-index: 1;
-
 }
 
 h3 {
@@ -43,12 +43,12 @@ h3 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 20%;
-  left: 35%;
-  font-size: 20px;
+  top: 30%; /* Adjust this value for the vertical positioning */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 25px;
   color: #fff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  transform: translateX(-50%);
 }
 
 #gameboard {
@@ -58,8 +58,8 @@ h3 {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 60%;
-  left: 42%;
+  top: 65%;
+  left: 50%;
   transform: translate(-50%, -50%);
 }
 
@@ -68,8 +68,8 @@ h3 {
 }
 
 .square {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   border: 2px solid black;
   box-sizing: border-box;
   background-color: brown;
@@ -125,56 +125,3 @@ button:hover {
   background-color: darkgreen;
 }
 
-@media (max-width: 768px) {
-  /* CSS for screens up to 768px width */
-  h1 {
-    font-size: 25px;
-    position: fixed;
-    top: 1%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  h2 {
-    font-size: 20px;
-    position: fixed;
-    top: 5%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
-}
-  }
-  h3 {
-    font-size: 15px;
-    position: fixed;
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  #gameboard {
-    
-    top: 40%;
-  }
-  
-  .square {
-    width: 40px;
-    height: 40px;
-    font-size: 12px;
-  }
-  
-  .red-piece {
-    height: 20px;
-    width: 20px;
-    border: 1px solid black;
-  }
-  
-  .black-piece {
-    height: 20px;
-    width: 20px;
-    border: 1px solid white;
-  }
-  
-  button {
-    font-size: 50px;
-  }

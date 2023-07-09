@@ -8,7 +8,7 @@ let selectedPiece;
 let opposingPlayerPiece;
 let gameOver= false;
 let emptySquares;
-let jumpOverAvailable
+let jumpOverAvailable;
 
 /*----- cached element references -----*/
 const squares = document.querySelectorAll('.square');
@@ -50,6 +50,7 @@ function renderControls(){
 
 function renderBoard() {
   messageEl.innerHTML = `${currentPlayer.toUpperCase()} STARTS`;
+  messageEl.style.color = 'black'
   squares.forEach((square, idx) => {
     let pieceColor = board[idx];
     square.innerHTML = '';
@@ -96,9 +97,11 @@ function validMove() {
           nextSquare = null;
           board[parseInt(square.id)] =board[selectedPiece];//updates board array
           board[selectedPiece] = ''//updates board array
+          squareID = parseInt(square.id)
           jumpOver()
           changePlayer();
           getWinner();
+          redKingMe(squareID,clickedSquare,nextSquare)
        }
       } else {
         nextSquare = clickedSquare;
@@ -117,7 +120,7 @@ function jumpOver() {
 
   squares.forEach((square) => {
     square.addEventListener('click', function (evt) {
-      const clickedSquare = evt.target;
+      clickedSquare = evt.target;
       validSquares = [];
 
       if (nextSquare && board[nextSquare.id] === currentPlayer) {
@@ -151,12 +154,12 @@ function jumpOver() {
           nextSquare = null;
           board[parseInt(square.id)] = board[selectedPiece];
           board[selectedPiece] = '';
-          board[opposingPlayerPiece] = '';
-          squares[opposingPlayerPiece].innerHTML = '';
-
+          board[opposingPlayerPiece] = '';//Clears from board array
+          squares[opposingPlayerPiece].innerHTML = '';//Clears from HTML
           let updatedPiece = parseInt(square.id);
           dubJump(updatedPiece);
           getWinner();
+          redKingMe(updatedPiece);
         }
       } else {
         nextSquare = clickedSquare;
@@ -222,22 +225,25 @@ function getWinner() {
     gameOver = true;
     messageEl.style.fontSize = '40px';
     messageEl.innerHTML = `Congratulations Black, You Win. Press PlayAgain if you would like to play again!`;
+    messageEl.style.color = 'black'
     gameOver=true;
   } else if (!blackRemaining) {
     gameOver = true;
     messageEl.style.fontSize = '40px';
-    messageEl.style.color = 'red';
     messageEl.innerHTML = `Congratulations Red, You Win. Press PlayAgain if you would like to play again!`;
+    messageEl.style.color = 'red'
     gameOver=true;
   } else if (!redMovesLeft) {
     gameOver = true;
     messageEl.style.fontSize = '40px';
     messageEl.innerHTML = `Black Wins by Default. Press PlayAgain if you would like to play again!`;
+    messageEl.style.color = 'black'
     gameOver=true;
   } else if (!blackMovesLeft) {
     gameOver = true;
     messageEl.style.fontSize = '40px';
     messageEl.innerHTML = `Red Wins by Default. Press PlayAgain if you would like to play again!`;
+    messageEl.style.color = 'red'
     gameOver=true;
   } else if (!redMovesLeft && !blackMovesLeft) {
     gameOver = true;
@@ -250,68 +256,13 @@ function getWinner() {
 
 function changePlayer() {
     currentPlayer = currentPlayer === 'black' ? 'red' : 'black';
+    if (currentPlayer === 'red'){
+      messageEl.innerHTML = `${currentPlayer.toUpperCase()}'s Turn`;
+      messageEl.style.color = 'red'
+    }else if(currentPlayer === 'black'){
     messageEl.innerHTML = `${currentPlayer.toUpperCase()}'s Turn`;
+    messageEl.style.color = 'black'
+    }
   }
 
-   
-// function redKingMe(squareID) {
-//   let kingMeSquares = [56, 58, 60, 62]; // IDs of red king me's
-//   if (kingMeSquares.includes(parseInt(squareID))) {
-//     let kingId = document.querySelectorAll('.square');
-//     const redPieceK = kingId[squareID].firstChild;
-//     redPieceK.style.border = "3px dotted blue";
-//     const validSquares = [];
-
-//     const selectedPiece = parseInt(squareID);
-//     const opposingPlayerPiece = (selectedPiece + parseInt(clickedSquare.id)) / 2;
-//     if (board[selectedPiece - 7] === '') {
-//       validSquares.push(selectedPiece - 7);
-//     }
-//     if (board[selectedPiece - 9] === '') {
-//       validSquares.push(selectedPiece - 9);
-//     }
-//     if (board[selectedPiece + 7] === '') {
-//       validSquares.push(selectedPiece + 7);
-//     }
-//     if (board[selectedPiece + 9] === '') {
-//       validSquares.push(selectedPiece + 9);
-//     }
-//     if (board[opposingPlayerPiece] !== '') {
-//       if (board[selectedPiece - 14] === '') {
-//         validSquares.push(selectedPiece - 14);
-//       }
-//       if (board[selectedPiece - 18] === '') {
-//         validSquares.push(selectedPiece - 18);
-//       }
-//       if (board[selectedPiece + 14] === '') {
-//         validSquares.push(selectedPiece + 14);
-//       }
-//       if (board[selectedPiece + 18] === '') {
-//         validSquares.push(selectedPiece + 18);
-//       }
-//     }
-//     if (validSquares.includes(parseInt(square.id))) {
-//       clickedSquare.innerHTML = kingId[squareID].innerHTML;
-//       kingId[squareID].innerHTML = '';
-//       board[parseInt(square.id)] = board[selectedPiece];
-//       board[selectedPiece] = '';
-//       board[opposingPlayerPiece] = '';
-//       toRemove[opposingPlayerPiece].innerHTML = '';
-//       changePlayer();
-//       getWinner();
-//     }
-
-//     alert('King Me');
-//   }
-// }
-
-// function blackKingMe(squareID){
-//   let kingMeSquares=[1,3,5,7]
-//   if (kingMeSquares.includes(parseInt(squareID))){
-//     let kingId = document.querySelectorAll('.square')
-//     const blackPieceK = kingId[squareID].firstChild;
-//     blackPieceK.style.border = "5px solid green"
-    
-//     alert('King Me')
-//   }
-// }
+ 
