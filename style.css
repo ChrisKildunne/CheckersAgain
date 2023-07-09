@@ -125,3 +125,12 @@ button:hover {
   background-color: darkgreen;
 }
 
+.red-pieceK {
+ 
+  background-color: red;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  border: 2px solid black;
+  pointer-events: none;
+}

@@ -101,7 +101,7 @@ function validMove() {
           jumpOver()
           changePlayer();
           getWinner();
-          redKingMe(squareID,clickedSquare,nextSquare)
+          redKingMe(squareID,clickedSquare,nextSquare,square)
        }
       } else {
         nextSquare = clickedSquare;
@@ -265,4 +265,42 @@ function changePlayer() {
     }
   }
 
- 
+  function redKingMe(squareID, clickedSquare, nextSquare,square) {
+    const kingMeSquares = [56, 58, 60, 62]; // IDs of red king me's
+    if (kingMeSquares.includes(squareID)) {
+      clickedSquare.innerHTML = '';
+      
+      const redPieceK = document.createElement('div');
+      redPieceK.classList.add('red-pieceK');
+      square.appendChild(redPieceK);
+      clickedSquare.innerHTML = 'K';
+      board[parseInt(clickedSquare.id)] = 'red';
+      board[squareID] = '';
+    
+  
+    const validSquares = [];
+    const selectedPiece = squareID;
+  
+    if (board[selectedPiece - 7] === '') {
+      validSquares.push(selectedPiece - 7);
+    }
+    if (board[selectedPiece - 9] === '') {
+      validSquares.push(selectedPiece - 9);
+    }
+    if (board[selectedPiece + 7] === '') {
+      validSquares.push(selectedPiece + 7);
+    }
+    if (board[selectedPiece + 9] === '') {
+      validSquares.push(selectedPiece + 9);
+    }
+  
+    if (validSquares.includes(parseInt(redPieceK.id))) {
+      clickedSquare.innerHTML = nextSquare.innerHTML;
+      nextSquare.innerHTML = '';
+      nextSquare = null;
+      board[parseInt(clickedSquare.id)] = 'red';
+      board[selectedPiece] = '';
+    }
+  }
+}
+  
