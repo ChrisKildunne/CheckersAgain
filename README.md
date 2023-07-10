@@ -24,6 +24,7 @@ Checkers is played on an 8x8 gameboard. A player can move one space diaganolly f
 
 ## Getting Started 
 ![Wireframe](<Screenshot 2023-07-09 at 11.35.02 AM.png>) ![Alt text](<Screenshot 2023-07-09 at 11.34.55 AM.png>) ![Alt text](<Screenshot 2023-07-09 at 11.34.45 AM.png>)
+## Play Checkers!
 [Click to play Checkers](https://chriskildunne.github.io/CheckersAgain/)
 
 ## Next Steps
